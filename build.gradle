@@ -1,0 +1,43 @@
+plugins {
+    id 'java-library'
+    id 'application'
+    id 'com.github.johnrengelman.shadow' version "8.1.1"
+    id 'nebula.lint' version "18.1.0"
+}
+
+repositories {
+    maven {
+        url "https://repo.osgeo.org/repository/release"
+    }
+    mavenCentral()
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs 'src'
+        }
+	resources {
+            srcDirs "src/resources"
+        }
+    }
+    test {
+        java {
+            srcDirs 'test'
+        }
+    }
+ }
+
+dependencies {
+	implementation files('libs/fit.jar')
+}
+application {
+    mainClass = "fit2gpx"
+}
+
+// https://github.com/johnrengelman/shadow
+shadowJar {
+   archiveBaseName.set('fit2gpx')
+}
+
+gradleLint.rules = ['all-dependency']
