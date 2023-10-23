@@ -188,6 +188,7 @@ public class Converter {
 
     int run() {  // Основной поэтапный цикл работы конвертера
         converter_clear();           // clean for reuse in loop
+        DateFormatGPX.setTimeZone(TimeZone.getTimeZone("UTC"));
 
         if(MODE == Mode.DUMP) { MergeOut = false; }    // don't merge out for debug!
 
