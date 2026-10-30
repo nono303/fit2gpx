@@ -34,6 +34,7 @@ dependencies {
 	// https://mvnrepository.com/artifact/com.garmin/fit
 	implementation "com.garmin:fit:+"
 }
+
 application {
     mainClass = "fit2gpx"
 }
@@ -41,6 +42,28 @@ application {
 // https://github.com/johnrengelman/shadow
 shadowJar {
    archiveBaseName.set('fit2gpx')
+}
+
+java {
+   toolchain {
+      languageVersion.set(JavaLanguageVersion.of(27))
+   }
+}
+
+allprojects {
+   tasks.withType(JavaCompile) {
+      options.encoding = 'UTF-8'
+      options.incremental = true
+      options.fork = true
+      options.deprecation = true
+      options.compilerArgs.addAll([
+         '-XDuseDepend=true',
+         '--release', '27',
+         '-Xlint:unchecked',
+         '-Xlint:deprecation',
+         '--enable-preview'
+      ])
+   }
 }
 
 gradleLint.rules = ['all-dependency']
